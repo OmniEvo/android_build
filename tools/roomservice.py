@@ -43,44 +43,44 @@ default_rev = "android-6.0"
 # example fetch="https://github.com/omnirom"
 default_team_rem = "omnirom"
 # this shouldn't change unless google makes changes
-local_manifest_dir = ".repo/local_manifests"
+#local_manifest_dir = ".repo/local_manifests"
 # change this to your name on github (or equivalent hosting)
 android_team = "omnirom"
 # url to gerrit repository
 gerrit_url = "gerrit.omnirom.org"
 
 
-def check_repo_exists(git_data, device):
-    re_match = "^android_device_.*_{device}$".format(device=device)
-    matches = filter(lambda x: re.match(re_match, x), git_data)
-    if len(matches) != 1:
-        raise Exception("{device} not found,"
-                        "exiting roomservice".format(device=device))
+#def check_repo_exists(git_data, device):
+#    re_match = "^android_device_.*_{device}$".format(device=device)
+#    matches = filter(lambda x: re.match(re_match, x), git_data)
+#    if len(matches) != 1:
+#        raise Exception("{device} not found,"
+#                        "exiting roomservice".format(device=device))
 
-    return git_data[matches[0]]
+#    return git_data[matches[0]]
 
 
-def search_gerrit_for_device(device):
+#def search_gerrit_for_device(device):
     # TODO: In next gerrit release regex search with r= should be supported!
-    git_search_url = "https://{gerrit_url}/projects/?m={device}".format(
-        gerrit_url=gerrit_url,
-        device=device
-    )
-    git_req = urllib.request.Request(git_search_url)
-    try:
-        response = urllib.request.urlopen(git_req)
-    except urllib.request.HTTPError as e:
-        print("There was an issue connecting to gerrit."
-                        " Please try again in a minute")
-    except urllib.request.URLError as e:
-        print("WARNING: No network connection available.")
-    else:
-        # Skip silly gerrit "header"
-        response.readline()
-        git_data = json.load(response)
-        device_data = check_repo_exists(git_data, device)
-        print("found the {} device repo".format(device))
-        return device_data
+#    git_search_url = "https://{gerrit_url}/projects/?m={device}".format(
+#        gerrit_url=gerrit_url,
+#        device=device
+#    )
+#    git_req = urllib.request.Request(git_search_url)
+#    try:
+#        response = urllib.request.urlopen(git_req)
+#    except urllib.request.HTTPError as e:
+#        print("There was an issue connecting to gerrit."
+#                        " Please try again in a minute")
+#    except urllib.request.URLError as e:
+#        print("WARNING: No network connection available.")
+#    else:
+#        # Skip silly gerrit "header"
+#        response.readline()
+#        git_data = json.load(response)
+#        device_data = check_repo_exists(git_data, device)
+#        print("found the {} device repo".format(device))
+#        return device_data
 
 
 def parse_device_directory(device_url, device):
@@ -303,21 +303,21 @@ def fetch_device(device):
             os.system('repo sync -f --no-clone-bundle %s' % device_dir)
 
 
-if __name__ == '__main__':
-    if not os.path.isdir(local_manifest_dir):
-        os.mkdir(local_manifest_dir)
+#if __name__ == '__main__':
+#    if not os.path.isdir(local_manifest_dir):
+#        os.mkdir(local_manifest_dir)
 
-    product = sys.argv[1]
-    try:
-        device = product[product.index("_") + 1:]
-    except ValueError:
-        device = product
+#    product = sys.argv[1]
+#    try:
+#        device = product[product.index("_") + 1:]
+#    except ValueError:
+#        device = product
 
-    if len(sys.argv) > 2:
-        deps_only = sys.argv[2]
-    else:
-        deps_only = False
+#    if len(sys.argv) > 2:
+#        deps_only = sys.argv[2]
+#    else:
+#        deps_only = False
 
-    if not deps_only:
-        fetch_device(device)
-    fetch_dependencies(device)
+#    if not deps_only:
+#        fetch_device(device)
+#    fetch_dependencies(device)
