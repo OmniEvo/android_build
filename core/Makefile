@@ -1705,7 +1705,17 @@ otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(CUSTOM_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(CUSTOM_TARGET_PACKAGE) > $(CUSTOM_TARGET_PACKAGE).md5sum
-	@echo -e ${PRT_CPL}"Package complete: $(CUSTOM_TARGET_PACKAGE)"${CL_RST}
+	@echo  ""
+	@echo -e ${CL_CYN}"=====-Build is Succesfully Done !!-====="${CL_RST} 
+	@echo  ""                                                                                       
+	@echo -e ${CL_CYN}"===========-Package complete-==========="${CL_RST}
+	@echo -e ${CL_CYN}"zip: "${CL_MAG} $(CUSTOM_TARGET_PACKAGE)${CL_RST}
+	@echo -e ${CL_CYN}"md5: "${CL_MAG}" `cat $(CUSTOM_TARGET_PACKAGE).md5sum | cut -d ' ' -f 1`"${CL_RST}
+	@echo -e ${CL_CYN}"size:"${CL_MAG}" `ls -lah $(CUSTOM_TARGET_PACKAGE) | cut -d ' ' -f 5`"${CL_RST}
+	@echo -e ${CL_CYN}"========================================"${CL_RST}
+	@echo  ""
+	@echo -e ${CL_CYN}"==██▒▒░░OMNIEVO by EVOMAGIX TEAM░░▒▒██=="${CL_RST}
+
 
 endif    # recovery_fstab is defined
 endif    # TARGET_NO_KERNEL != true
