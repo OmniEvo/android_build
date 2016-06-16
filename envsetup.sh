@@ -1568,6 +1568,7 @@ function make()
     echo
     if [ $ret -eq 0 ] ; then
         echo -n -e "${color_success}#### make completed successfully "
+	paplay $(gettop)/vendor/omni/utils/sounds/success.wav &> /dev/null #hide error messages
     else
         echo -n -e "${color_failed}#### make failed to build some targets "
     fi
