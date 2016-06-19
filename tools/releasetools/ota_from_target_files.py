@@ -731,8 +731,14 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   bootpartition = "/boot" if OPTIONS.override_boot_partition == "" else OPTIONS.override_boot_partition
   script.WriteRawImage(bootpartition, "boot.img")
 
+  script.Print(" ")
+  script.Print("Flashing SuperSU..")
+  common.ZipWriteStr(output_zip, "supersu/supersu.zip",
+                 ""+input_zip.read("SYSTEM/addon.d/UPDATE-SuperSU.zip"))
+  script.FlashSuperSU()
+
   script.ShowProgress(0.1, 0)
-  script.Print("Enjoy OMNI ROM!");
+  script.Print("Enjoy OMNIEVO ROM!");
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
